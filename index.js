@@ -2,7 +2,12 @@
  *  const str = '$the gr()$eat gatsby $$'
  *  prependStrAtChar(str, '$', '()')   // ()$the gr()$eat gatsby ()$()$
  */
-function prependStrAtChar (str, searchChar, prependStr) {
+
+function escapeSpecialChars (str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
+}
+
+module.exports = function prependStrAtChar (str, searchChar, prependStr) {
   let strArr = []
 
   return (function _prependStrAtChar (str) {
@@ -26,8 +31,4 @@ function prependStrAtChar (str, searchChar, prependStr) {
 
     return _prependStrAtChar(nextSubStr)
   })(str)
-}
-
-module.exports = {
-  prependStrAtChar
 }
