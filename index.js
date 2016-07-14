@@ -6,7 +6,17 @@
 const escapeSpecialChars = str =>
   str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
 
+const someNull = arr =>
+  arr.some(k => k == null)
+
+const someNotOfTypeStrOrNum = arr =>
+  arr.some(k =>
+    typeof k !== 'string' && typeof k !== 'number'
+  )
+
 export default function prependStrAtChar (str, searchChar, prependStr) {
+  const args = [str, searchChar, prependStr]
+  if (someNull(args) || someNotOfTypeStrOrNum(args)) return str
   let strArr = []
 
   return (function _prependStrAtChar (str) {
