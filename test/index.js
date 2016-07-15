@@ -21,3 +21,10 @@ items.forEach(item => {
     t.is(item.expected, prependStrAtChar(item.before, item.character, item.prependStr))
   })
 })
+
+test('return empty string if called with missing args', t => {
+  t.is(prependStrAtChar(), '')
+  t.is(prependStrAtChar('a', null, null), '')
+  t.is(prependStrAtChar(null, 'a', null), '')
+  t.is(prependStrAtChar(null, null, 'a'), '')
+})

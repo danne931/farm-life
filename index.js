@@ -16,7 +16,7 @@ const someNotOfTypeStrOrNum = arr =>
 
 export default function prependStrAtChar (str, searchChar, prependStr) {
   const args = [str, searchChar, prependStr]
-  if (someNull(args) || someNotOfTypeStrOrNum(args)) return str
+  if (someNull(args) || someNotOfTypeStrOrNum(args)) return ''
   let strArr = []
 
   return (function _prependStrAtChar (str) {
