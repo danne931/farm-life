@@ -1,8 +1,3 @@
-/*
- *  const str = '$the gr()$eat gatsby $$'
- *  prependStrAtChar(str, '$', '()')   // ()$the gr()$eat gatsby ()$()$
- */
-
 const escapeSpecialChars = str =>
   str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
 
@@ -14,30 +9,57 @@ const someNotOfTypeStrOrNum = arr =>
     typeof k !== 'string' && typeof k !== 'number'
   )
 
-export default function prependStrAtChar (str, searchChar, prependStr) {
-  const args = [str, searchChar, prependStr]
+const placeStrAtChar = type => (str, searchChar, placementStr) => {
+  const args = [str, searchChar, placementStr]
   if (someNull(args) || someNotOfTypeStrOrNum(args)) return ''
+  const placementStrSize = placementStr.length
   let strArr = []
 
-  return (function _prependStrAtChar (str) {
-    const foundAt = str.search(escapeSpecialChars(searchChar))
-    if (foundAt === -1) {
+  return (function _placeStrAtChar (str) {
+    const locFound = str.search(escapeSpecialChars(searchChar))
+    if (locFound === -1) {
       return strArr.length ? strArr.concat(str).join('') : str
     }
 
-    const nextSubStr = str.slice(foundAt + 1)
-    const z = foundAt - prependStr.length
-    const strPrecedingSearchChar = str.slice(z, foundAt)
+    const nextSubStr = str.slice(locFound + 1)
+    const accStrPrecedingLocFound = () =>
+      strArr.concat(str.slice(0, locFound + 1))
 
-    if (z >= 0 && strPrecedingSearchChar === prependStr) {
-      strArr = strArr.concat(str.slice(0, foundAt + 1))
-      return strArr.length ? _prependStrAtChar(nextSubStr) : str
+    if (type === 'prepend') {
+      const locStartPotential = locFound - placementStrSize
+      const potential = str.slice(locStartPotential, locFound)
+
+      if (locStartPotential >= 0 && potential === placementStr) {
+        strArr = accStrPrecedingLocFound()
+        return strArr.length ? _placeStrAtChar(nextSubStr) : str
+      }
+
+      strArr = strArr
+        .concat(str.slice(0, locFound))
+        .concat([placementStr])
+        .concat(str.slice(locFound, locFound + 1))
+    } else {
+      const locEndPotential = locFound + placementStrSize
+      const potential = str.slice(locFound + 1, locEndPotential + 1)
+
+      if (locEndPotential >= 0 && potential === placementStr) {
+        strArr = accStrPrecedingLocFound()
+        return strArr.length ? _placeStrAtChar(nextSubStr) : str
+      }
+
+      strArr = strArr
+        .concat(str.slice(0, locFound + 1))
+        .concat([placementStr])
     }
 
-    const a = str.slice(0, foundAt)
-    const b = str.slice(foundAt, foundAt + 1)
-    strArr = strArr.concat(a).concat([prependStr]).concat(b)
-
-    return _prependStrAtChar(nextSubStr)
+    return _placeStrAtChar(nextSubStr)
   })(str)
+}
+
+export function prependStrAtChar () {
+  return placeStrAtChar('prepend')(...arguments)
+}
+
+export function appendStrAtChar () {
+  return placeStrAtChar('append')(...arguments)
 }
