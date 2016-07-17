@@ -12,7 +12,7 @@ var config = {
     ]
   },
   output: {
-    library: 'prepend-str-at-char',
+    library: 'insertStrAtChar',
     libraryTarget: 'umd'
   },
   plugins: []

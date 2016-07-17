@@ -1,5 +1,5 @@
 {
-  "name": "prepend-str-at-char",
+  "name": "insert-str-at-char",
   "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
@@ -22,19 +22,19 @@
     "test": "ava",
     "check": "standard && npm test",
     "build:commonjs": "cross-env babel index.js --out-dir lib",
-    "build:umd": "cross-env NODE_ENV=development webpack --display-modules index.js dist/prepend-str-at-char.js",
-    "build:umd:min": "cross-env NODE_ENV=production webpack --display-modules index.js dist/prepend-str-at-char.min.js",
+    "build:umd": "cross-env NODE_ENV=development webpack --display-modules index.js dist/insert-str-at-char.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack --display-modules index.js dist/insert-str-at-char.min.js",
     "build": "npm run clean && npm run build:commonjs && npm run build:umd && npm run build:umd:min",
     "prepublish": "npm run check && npm run build"
   },
   "repository": {
     "type": "git",
-    "repo": "https://github.com/danne931/prepend-str-at-char.git"
+    "repo": "https://github.com/danne931/insert-str-at-char.git"
   },
   "author": "Daniel Eisenbarger <danieleisenbarger@gmail.com> (https://github.com/danne931)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danne931/prepend-str-at-char/issues"
+    "url": "https://github.com/danne931/insert-str-at-char/issues"
   },
   "keywords": [],
   "standard": {

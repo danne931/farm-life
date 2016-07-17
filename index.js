@@ -9,15 +9,15 @@ const someNotOfTypeStrOrNum = arr =>
     typeof k !== 'string' && typeof k !== 'number'
   )
 
-const placeStrAtChar = opts => (str, searchChar, placementStr) => {
-  const args = [str, searchChar, placementStr]
+const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
+  const args = [str, searchChar, insertionStr]
   if (someNull(args) || someNotOfTypeStrOrNum(args)) return ''
 
-  const { type, ensurePlacement } = opts
-  const placementStrSize = placementStr.length
+  const { type, ensureInserted } = opts
+  const insertionStrSize = insertionStr.length
   let acc = []
 
-  return (function _placeStrAtChar (subset) {
+  return (function _insertStrAtChar (subset) {
     const locFound = subset.search(escapeSpecialChars(searchChar))
     if (locFound === -1) {
       return acc.length ? acc.concat(subset).join('') : subset
@@ -28,46 +28,46 @@ const placeStrAtChar = opts => (str, searchChar, placementStr) => {
       acc.concat(subset.slice(0, locFound + 1))
 
     if (type === 'prepend') {
-      const locStartPotential = locFound - placementStrSize
+      const locStartPotential = locFound - insertionStrSize
       const potential = subset.slice(locStartPotential, locFound)
 
-      if (ensurePlacement && locStartPotential >= 0 && potential === placementStr) {
+      if (ensureInserted && locStartPotential >= 0 && potential === insertionStr) {
         acc = accStrPrecedingLocFound()
-        return subset.length ? _placeStrAtChar(nextSubset) : subset
+        return subset.length ? _insertStrAtChar(nextSubset) : subset
       }
 
       acc = acc
         .concat(subset.slice(0, locFound))
-        .concat([placementStr])
+        .concat([insertionStr])
         .concat(subset.slice(locFound, locFound + 1))
     } else {
-      const locEndPotential = locFound + placementStrSize
+      const locEndPotential = locFound + insertionStrSize
       const potential = subset.slice(locFound + 1, locEndPotential + 1)
 
-      if (ensurePlacement && locEndPotential >= 0 && potential === placementStr) {
+      if (ensureInserted && locEndPotential >= 0 && potential === insertionStr) {
         acc = accStrPrecedingLocFound()
-        return subset.length ? _placeStrAtChar(nextSubset) : subset
+        return subset.length ? _insertStrAtChar(nextSubset) : subset
       }
 
       acc = acc
         .concat(subset.slice(0, locFound + 1))
-        .concat([placementStr])
+        .concat([insertionStr])
     }
 
-    return _placeStrAtChar(nextSubset)
+    return _insertStrAtChar(nextSubset)
   })(str)
 }
 
-export const prependStrAtChar = placeStrAtChar({ type: 'prepend' })
+export const prependStrAtChar = insertStrAtChar({ type: 'prepend' })
 
-export const appendStrAtChar = placeStrAtChar({ type: 'append' })
+export const appendStrAtChar = insertStrAtChar({ type: 'append' })
 
-export const ensureStrPrependedAtChar = placeStrAtChar({
+export const ensureStrPrependedAtChar = insertStrAtChar({
   type: 'prepend',
-  ensurePlacement: true
+  ensureInserted: true
 })
 
-export const ensureStrAppendedAtChar = placeStrAtChar({
+export const ensureStrAppendedAtChar = insertStrAtChar({
   type: 'append',
-  ensurePlacement: true
+  ensureInserted: true
 })
