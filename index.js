@@ -9,9 +9,11 @@ const someNotOfTypeStrOrNum = arr =>
     typeof k !== 'string' && typeof k !== 'number'
   )
 
-const placeStrAtChar = type => (str, searchChar, placementStr) => {
+const placeStrAtChar = opts => (str, searchChar, placementStr) => {
   const args = [str, searchChar, placementStr]
   if (someNull(args) || someNotOfTypeStrOrNum(args)) return ''
+
+  const { type, ensurePlacement } = opts
   const placementStrSize = placementStr.length
   let acc = []
 
@@ -29,7 +31,7 @@ const placeStrAtChar = type => (str, searchChar, placementStr) => {
       const locStartPotential = locFound - placementStrSize
       const potential = subset.slice(locStartPotential, locFound)
 
-      if (locStartPotential >= 0 && potential === placementStr) {
+      if (ensurePlacement && locStartPotential >= 0 && potential === placementStr) {
         acc = accStrPrecedingLocFound()
         return subset.length ? _placeStrAtChar(nextSubset) : subset
       }
@@ -42,7 +44,7 @@ const placeStrAtChar = type => (str, searchChar, placementStr) => {
       const locEndPotential = locFound + placementStrSize
       const potential = subset.slice(locFound + 1, locEndPotential + 1)
 
-      if (locEndPotential >= 0 && potential === placementStr) {
+      if (ensurePlacement && locEndPotential >= 0 && potential === placementStr) {
         acc = accStrPrecedingLocFound()
         return subset.length ? _placeStrAtChar(nextSubset) : subset
       }
@@ -56,5 +58,16 @@ const placeStrAtChar = type => (str, searchChar, placementStr) => {
   })(str)
 }
 
-export const prependStrAtChar = placeStrAtChar('prepend')
-export const appendStrAtChar = placeStrAtChar('append')
+export const prependStrAtChar = placeStrAtChar({ type: 'prepend' })
+
+export const appendStrAtChar = placeStrAtChar({ type: 'append' })
+
+export const ensureStrPrependedAtChar = placeStrAtChar({
+  type: 'prepend',
+  ensurePlacement: true
+})
+
+export const ensureStrAppendedAtChar = placeStrAtChar({
+  type: 'append',
+  ensurePlacement: true
+})

@@ -1,7 +1,19 @@
 import test from 'ava'
-import { prependStrAtChar, appendStrAtChar } from '../index'
+import {
+  prependStrAtChar,
+  appendStrAtChar,
+  ensureStrPrependedAtChar,
+  ensureStrAppendedAtChar
+} from '../index'
 
-const prependItems = [
+const testMissingArgs = (t, fn) => {
+  t.is(fn(), '')
+  t.is(fn('a', null, null), '')
+  t.is(fn(null, 'a', null), '')
+  t.is(fn(null, null, 'a'), '')
+}
+
+const ensurePrependItems = [
   {
     before: '$the gr()$eat gatsby $$',
     expected: '()$the gr()$eat gatsby ()$()$',
@@ -16,7 +28,7 @@ const prependItems = [
   }
 ]
 
-const appendItems = [
+const ensureAppendItems = [
   {
     before: '$the gr()$eat gatsby $()$',
     expected: '$()the gr()$()eat gatsby $()$()',
@@ -30,6 +42,42 @@ const appendItems = [
     placementStr: '**'
   }
 ]
+
+const prependItems = [
+  {
+    before: '$the gr()$eat gatsby $$',
+    expected: '()$the gr()()$eat gatsby ()$()$',
+    character: '$',
+    placementStr: '()'
+  }
+]
+
+const appendItems = [
+  {
+    before: '$the gr()$eat gatsby $()$',
+    expected: '$()the gr()$()eat gatsby $()()$()',
+    character: '$',
+    placementStr: '()'
+  }
+]
+
+ensurePrependItems.forEach(item => {
+  test('ensureStrPrependedAtChar() should prepend string at a given char if does not exist', t => {
+    t.is(
+      item.expected,
+      ensureStrPrependedAtChar(item.before, item.character, item.placementStr)
+    )
+  })
+})
+
+ensureAppendItems.forEach(item => {
+  test('ensureStrAppendedAtChar() should append string at a given char if does not exist', t => {
+    t.is(
+      item.expected,
+      ensureStrAppendedAtChar(item.before, item.character, item.placementStr)
+    )
+  })
+})
 
 prependItems.forEach(item => {
   test('prependStrAtChar() should prepend string at a given char', t => {
@@ -50,15 +98,17 @@ appendItems.forEach(item => {
 })
 
 test('prependStrAtChar returns empty string if called with missing args', t => {
-  t.is(prependStrAtChar(), '')
-  t.is(prependStrAtChar('a', null, null), '')
-  t.is(prependStrAtChar(null, 'a', null), '')
-  t.is(prependStrAtChar(null, null, 'a'), '')
+  testMissingArgs(t, prependStrAtChar)
 })
 
 test('appendStrAtChar returns empty string if called with missing args', t => {
-  t.is(appendStrAtChar(), '')
-  t.is(appendStrAtChar('a', null, null), '')
-  t.is(appendStrAtChar(null, 'a', null), '')
-  t.is(appendStrAtChar(null, null, 'a'), '')
+  testMissingArgs(t, appendStrAtChar)
+})
+
+test('ensureStrAppendedAtChar returns empty string if called with missing args', t => {
+  testMissingArgs(t, ensureStrAppendedAtChar)
+})
+
+test('ensureStrPrependedAtChar returns empty string if called with missing args', t => {
+  testMissingArgs(t, ensureStrPrependedAtChar)
 })
