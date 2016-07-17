@@ -56,10 +56,5 @@ const placeStrAtChar = type => (str, searchChar, placementStr) => {
   })(str)
 }
 
-export function prependStrAtChar () {
-  return placeStrAtChar('prepend')(...arguments)
-}
-
-export function appendStrAtChar () {
-  return placeStrAtChar('append')(...arguments)
-}
+export const prependStrAtChar = placeStrAtChar('prepend')
+export const appendStrAtChar = placeStrAtChar('append')
