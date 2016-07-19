@@ -15,10 +15,11 @@ const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
 
   const { type, ensureInserted } = opts
   const insertionStrSize = insertionStr.length
+  const searchCharEscaped = escapeSpecialChars(searchChar)
   let acc = []
 
   return (function _insertStrAtChar (subset) {
-    const locFound = subset.search(escapeSpecialChars(searchChar))
+    const locFound = subset.search(searchCharEscaped)
     if (locFound === -1) {
       return acc.length ? acc.concat(subset).join('') : subset
     }
