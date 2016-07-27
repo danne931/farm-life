@@ -7,8 +7,11 @@ const isString = val => typeof val === 'string'
 const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
   const arr = [searchChar, insertionStr]
   if (isNil(str) || !isString(str)) return ''
-  if (arr.some(isNil) || !arr.every(isString)) return str
-  if (!searchChar.length || !insertionStr.length) return str
+  if (arr.some(isNil) ||
+    !arr.every(isString) ||
+    searchChar.length === 0 ||
+    insertionStr.length === 0
+  ) return str
 
   const { type, ensureInserted } = opts
   const insertionStrSize = insertionStr.length
