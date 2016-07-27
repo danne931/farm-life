@@ -1,17 +1,12 @@
 import test from 'ava'
-import {
+import * as libFns from '../index'
+
+const {
   prependStrAtChar,
   appendStrAtChar,
   ensureStrPrependedAtChar,
   ensureStrAppendedAtChar
-} from '../index'
-
-const testMissingArgs = (t, fn) => {
-  t.is(fn(), '')
-  t.is(fn('a', null, null), '')
-  t.is(fn(null, 'a', null), '')
-  t.is(fn(null, null, 'a'), '')
-}
+} = libFns
 
 const ensurePrependItems = [
   {
@@ -97,18 +92,23 @@ appendItems.forEach(item => {
   })
 })
 
-test('prependStrAtChar returns empty string if called with missing args', t => {
-  testMissingArgs(t, prependStrAtChar)
-})
+Object.keys(libFns).forEach(fnName => {
+  const fn = libFns[fnName]
 
-test('appendStrAtChar returns empty string if called with missing args', t => {
-  testMissingArgs(t, appendStrAtChar)
-})
+  test(fnName + ' returns empty string if called with missing args', t => {
+    t.is(fn(), '')
+    t.is(fn(null, 'a', null), '')
+    t.is(fn(null, null, 'a'), '')
+  })
 
-test('ensureStrAppendedAtChar returns empty string if called with missing args', t => {
-  testMissingArgs(t, ensureStrAppendedAtChar)
-})
+  const testTitle = fnName + ' returns str arg if str arg is non-empty ' +
+    'string but searchChar or insertionStr args are not of type ' +
+    'string or number'
+  const str = 'abc'
 
-test('ensureStrPrependedAtChar returns empty string if called with missing args', t => {
-  testMissingArgs(t, ensureStrPrependedAtChar)
+  test(testTitle, t => {
+    t.is(fn(str, null, null), str)
+    t.is(fn(str, null, '$'), str)
+    t.is(fn(str, '$', null), str)
+  })
 })

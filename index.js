@@ -1,21 +1,18 @@
-const escapeSpecialChars = str =>
-  str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
+import escape from 'regexp.escape'
 
-const someNull = arr =>
-  arr.some(k => k == null)
+const isNil = val => val == null
 
-const someNotOfTypeStrOrNum = arr =>
-  arr.some(k =>
-    typeof k !== 'string' && typeof k !== 'number'
-  )
+const notOfTypeStrOrNum = val =>
+  typeof val !== 'string' && typeof val !== 'number'
 
 const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
-  const args = [str, searchChar, insertionStr]
-  if (someNull(args) || someNotOfTypeStrOrNum(args)) return ''
+  const arr = [searchChar, insertionStr]
+  if (str == null || typeof str !== 'string') return ''
+  if (arr.some(isNil) || arr.some(notOfTypeStrOrNum)) return str
 
   const { type, ensureInserted } = opts
   const insertionStrSize = insertionStr.length
-  const searchCharEscaped = escapeSpecialChars(searchChar)
+  const searchCharEscaped = escape(searchChar)
   let acc = []
 
   return (function _insertStrAtChar (subset) {
