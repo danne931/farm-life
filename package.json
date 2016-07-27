@@ -1,9 +1,16 @@
 {
-  "name": "insert-str-at-char",
+  "name": "insert-string-at-char",
   "version": "0.0.1",
-  "description": "",
+  "description": "Prepend or append string X at each occurrence of character Y in string Z",
   "main": "lib/index.js",
-  "dependencies": {},
+  "files": [
+    "dist",
+    "lib",
+    "index.js"
+  ],
+  "dependencies": {
+    "regexp.escape": "^1.0.2"
+  },
   "devDependencies": {
     "ava": "^0.15.2",
     "babel-cli": "^6.10.1",
@@ -21,22 +28,33 @@
     "clean": "rimraf dist lib",
     "test": "ava",
     "check": "standard && npm test",
-    "build:commonjs": "cross-env babel index.js --out-dir lib",
-    "build:umd": "cross-env NODE_ENV=development webpack --display-modules index.js dist/insert-str-at-char.js",
-    "build:umd:min": "cross-env NODE_ENV=production webpack --display-modules index.js dist/insert-str-at-char.min.js",
+    "build:commonjs": "babel index.js --out-dir lib",
+    "build:umd": "cross-env NODE_ENV=development webpack --display-modules index.js dist/insert-string-at-char.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack --display-modules index.js dist/insert-string-at-char.min.js",
     "build": "npm run clean && npm run build:commonjs && npm run build:umd && npm run build:umd:min",
     "prepublish": "npm run check && npm run build"
   },
   "repository": {
     "type": "git",
-    "repo": "https://github.com/danne931/insert-str-at-char.git"
+    "url": "https://github.com/danne931/insert-string-at-char.git"
   },
   "author": "Daniel Eisenbarger <danieleisenbarger@gmail.com> (https://github.com/danne931)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danne931/insert-str-at-char/issues"
+    "url": "https://github.com/danne931/insert-string-at-char/issues"
   },
-  "keywords": [],
+  "keywords": [
+    "insert string at char",
+    "insert string at character",
+    "prepend string",
+    "append string",
+    "string",
+    "manipulate string",
+    "manipulate strings",
+    "string manipulation",
+    "string parsing",
+    "text parsing"
+  ],
   "standard": {
     "parser": "babel-eslint"
   },

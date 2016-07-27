@@ -12,7 +12,7 @@ var config = {
     ]
   },
   output: {
-    library: 'insertStrAtChar',
+    library: 'insertStringAtChar',
     libraryTarget: 'umd'
   },
   plugins: []
