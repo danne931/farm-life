@@ -101,6 +101,10 @@ Object.keys(libFns).forEach(fnName => {
     t.is(fn(null, null, 'a'), '')
   })
 
+  test(fnName + ' return empty string if str arg is not of type string', t => {
+    t.is(fn(100030, 1, '$'), '')
+  })
+
   const testTitle = fnName + ' returns str arg if str arg is non-empty ' +
     'string but searchChar or insertionStr args are not of type ' +
     'string or number'
@@ -109,6 +113,6 @@ Object.keys(libFns).forEach(fnName => {
   test(testTitle, t => {
     t.is(fn(str, null, null), str)
     t.is(fn(str, null, '$'), str)
-    t.is(fn(str, '$', null), str)
+    t.is(fn(str, 'a', null), str)
   })
 })
