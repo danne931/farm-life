@@ -108,7 +108,7 @@ Object.keys(libFns).forEach(fnName => {
 
   const testTitle = fnName + ' returns str arg if str arg is non-empty ' +
     'string and searchChar or insertionStr args are not of type ' +
-    'string or number'
+    'string'
   const str = 'abc'
   test(testTitle, t => {
     t.is(fn(str, null, null), str)

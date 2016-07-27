@@ -2,16 +2,13 @@ import escape from 'regexp.escape'
 
 const isNil = val => val == null
 
-const notOfTypeStrOrNum = val =>
-  typeof val !== 'string' && typeof val !== 'number'
+const isString = val => typeof val === 'string'
 
 const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
   const arr = [searchChar, insertionStr]
-  if (str == null || typeof str !== 'string') return ''
-  if (arr.some(isNil) || arr.some(notOfTypeStrOrNum)) return str
-  if (typeof searchChar === 'string' && !searchChar.length ||
-    typeof insertionStr === 'string' && !insertionStr.length
-  ) return str
+  if (isNil(str) || !isString(str)) return ''
+  if (arr.some(isNil) || !arr.every(isString)) return str
+  if (!searchChar.length || !insertionStr.length) return str
 
   const { type, ensureInserted } = opts
   const insertionStrSize = insertionStr.length
