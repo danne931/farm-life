@@ -1,7 +1,7 @@
 {
-  "name": "insert-string-at-char",
+  "name": "farm-life",
   "version": "0.0.1",
-  "description": "Prepend or append string X to each occurrence of string Y in string Z",
+  "description": "Prepend/append string X (or ensure string X is prepended/appended) to each occurrence of string Y in string Z",
   "main": "lib/index.js",
   "files": [
     "dist",
@@ -29,19 +29,19 @@
     "test": "ava",
     "check": "standard && npm test",
     "build:commonjs": "babel index.js --out-dir lib",
-    "build:umd": "cross-env NODE_ENV=development webpack --display-modules index.js dist/insert-string-at-char.js",
-    "build:umd:min": "cross-env NODE_ENV=production webpack --display-modules index.js dist/insert-string-at-char.min.js",
+    "build:umd": "cross-env NODE_ENV=development webpack --display-modules index.js dist/farm-life.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack --display-modules index.js dist/farm-life.min.js",
     "build": "npm run clean && npm run build:commonjs && npm run build:umd && npm run build:umd:min",
     "prepublish": "npm run check && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/danne931/insert-string-at-char.git"
+    "url": "https://github.com/danne931/farm-life.git"
   },
   "author": "Daniel Eisenbarger <danieleisenbarger@gmail.com> (https://github.com/danne931)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danne931/insert-string-at-char/issues"
+    "url": "https://github.com/danne931/farm-life/issues"
   },
   "keywords": [
     "prepend string",
@@ -53,7 +53,11 @@
     "manipulate strings",
     "string manipulation",
     "string parsing",
-    "text parsing"
+    "text parsing",
+    "haystack",
+    "needle in haystack",
+    "farm",
+    "farm life"
   ],
   "standard": {
     "parser": "babel-eslint"

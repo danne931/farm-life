@@ -1,21 +1,23 @@
-# insert-string-at-char
+# farm-life
 
-Prepend or append string X to each occurrence of string Y in string Z
+Prepend/append string X (or ensure string X is prepended/appended) to each occurrence of string Y in string Z
 
-[![Build Status](https://travis-ci.org/danne931/insert-string-at-char.svg?branch=master)](https://travis-ci.org/danne931/insert-string-at-char)
-[![npm version](https://img.shields.io/npm/v/insert-string-at-char.svg?style=flat-square)](https://www.npmjs.com/package/insert-string-at-char)
+![](http://i.giphy.com/aJupEZUSsQKGY.gif)
+
+[![Build Status](https://travis-ci.org/danne931/farm-life.svg?branch=master)](https://travis-ci.org/danne931/farm-life)
+[![npm version](https://img.shields.io/npm/v/farm-life.svg?style=flat-square)](https://www.npmjs.com/package/farm-life)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Install
 
 ```
-$ npm install --save insert-string-at-char
+$ npm install --save farm-life
 ```
 
 Not using Node or a module bundler? Use a UMD build via the `<script>` tag.
-- [https://npmcdn.com/insert-string-at-char/dist/insert-string-at-char.js](https://npmcdn.com/insert-string-at-char/dist/insert-string-at-char.js)
-- [https://npmcdn.com/insert-string-at-char/dist/insert-string-at-char.min.js](https://npmcdn.com/insert-string-at-char/dist/insert-string-at-char.min.js)
+- [https://npmcdn.com/farm-life/dist/farm-life.js](https://npmcdn.com/farm-life/dist/farm-life.js)
+- [https://npmcdn.com/farm-life/dist/farm-life.min.js](https://npmcdn.com/farm-life/dist/farm-life.min.js)
 
 ## Usage
 
@@ -25,15 +27,15 @@ import {
   prepend,
   ensureAppended,
   ensurePrepended
-} from 'insert-string-at-char'
+} from 'farm-life'
 
-const haystack = '$the gr[]$[]eat gatsby $$[]'
-const needle = '$'
-const attachment = '[]'
+const haystack = '[]-$$the gr$$[]-eat gat$sby $$[]'
+const needle = '$$'
+const attachment = '[]-'
 
-append(haystack, needle, attachment)  // '$[]the gr[]$[][]eat gatsby $[]$[][]'
-ensureAppended(haystack, needle, attachment) // '$[]the gr[]$[]eat gatsby $[]$[]'
+append(haystack, needle, attachment)  // '[]-$$[]-the gr$$[]-[]-eat gat$sby $$[]-[]'
+ensureAppended(haystack, needle, attachment) // '[]-$$[]-the gr$$[]-eat gat$sby $$[]-[]'
 
-prepend(haystack, needle, attachment)  // '[]$the gr[][]$[]eat gatsby []$[]$[]'
-ensurePrepended(haystack, needle, attachment)  // '[]$the gr[]$[]eat gatsby []$[]$[]'
+prepend(haystack, needle, attachment)  // []-[]-$$the gr[]-$$[]-eat gat$sby []-$$[]
+ensurePrepended(haystack, needle, attachment)  // '[]-$$the gr[]-$$[]-eat gat$sby []-$$[]'
 ```

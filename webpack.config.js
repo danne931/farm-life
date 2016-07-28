@@ -12,7 +12,7 @@ var config = {
     ]
   },
   output: {
-    library: 'insertStringAtChar',
+    library: 'farmLife',
     libraryTarget: 'umd'
   },
   plugins: []

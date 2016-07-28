@@ -20,6 +20,30 @@ const ensurePrependItems = [
     expected: 'the**- g**-**-**-reat $**-**-$',
     needle: '-',
     attachment: '**'
+  },
+  {
+    before: '***the** g:)******reat $:)* * * ***',
+    expected: ':)***the** g:)***:)***reat $:)* * * :)***',
+    needle: '***',
+    attachment: ':)'
+  },
+  {
+    before: '$  25 for  $ 50 worth of  ',
+    expected: '$ $  25 for $  $ 50 worth of $  ',
+    needle: '  ',
+    attachment: ' $'
+  },
+  {
+    before: '[]-[][]-[]-[]',
+    expected: '[]-[]-[][]-[]-[]-[]',
+    needle: '[]-',
+    attachment: '[]-'
+  },
+  {
+    before: '[][][]',
+    expected: '[][][][]',
+    needle: '[]',
+    attachment: '[]'
   }
 ]
 
@@ -35,6 +59,30 @@ const ensureAppendItems = [
     expected: 'the-** g-**-**-**reat $-**-**$',
     needle: '-',
     attachment: '**'
+  },
+  {
+    before: '***the*** g:)******reat $:)* * * ***',
+    expected: '***:)the***:) g:)***:)***:)reat $:)* * * ***:)',
+    needle: '***',
+    attachment: ':)'
+  },
+  {
+    before: '$  25 for  $ 50 worth of  ',
+    expected: '$   25 for   $ 50 worth of   ',
+    needle: '  ',
+    attachment: ' '
+  },
+  {
+    before: '[]-[][]-[]-[]',
+    expected: '[]-[]-[][]-[]-[]-[]',
+    needle: '[]-',
+    attachment: '[]-'
+  },
+  {
+    before: '[][][]',
+    expected: '[][][][]',
+    needle: '[]',
+    attachment: '[]'
   }
 ]
 
@@ -44,6 +92,30 @@ const prependItems = [
     expected: '()$the gr()()$eat gatsby ()$()$',
     needle: '$',
     attachment: '()'
+  },
+  {
+    before: '***the** g:)******reat $:)* * * :)***',
+    expected: ':)***the** g:):)***:)***reat $:)* * * :):)***',
+    needle: '***',
+    attachment: ':)'
+  },
+  {
+    before: '$ 25 for $ 50 worth of',
+    expected: '$  25  for  $  50  worth  of',
+    needle: ' ',
+    attachment: ' '
+  },
+  {
+    before: '[]-[][]-[]-[]',
+    expected: '[]-[]-[][]-[]-[]-[]-[]',
+    needle: '[]-',
+    attachment: '[]-'
+  },
+  {
+    before: '[][][]',
+    expected: '[][][][][][]',
+    needle: '[]',
+    attachment: '[]'
   }
 ]
 
@@ -53,6 +125,30 @@ const appendItems = [
     expected: '$()the gr()$()eat gatsby $()()$()',
     needle: '$',
     attachment: '()'
+  },
+  {
+    before: '***the***:) g:)***:)***reat $:)* * * ***',
+    expected: '***:)the***:):) g:)***:):)***:)reat $:)* * * ***:)',
+    needle: '***',
+    attachment: ':)'
+  },
+  {
+    before: '$ 25 for $ 50 worth of',
+    expected: '$  25  for  $  50  worth  of',
+    needle: ' ',
+    attachment: ' '
+  },
+  {
+    before: '[]-[][]-[]-[]',
+    expected: '[]-[]-[][]-[]-[]-[]-[]',
+    needle: '[]-',
+    attachment: '[]-'
+  },
+  {
+    before: '[][][]',
+    expected: '[][][][][][]',
+    needle: '[]',
+    attachment: '[]'
   }
 ]
 

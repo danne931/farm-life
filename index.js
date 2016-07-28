@@ -25,15 +25,18 @@ const attach = opts => (haystack, needle, attachment) => {
 
     const locStartNextSubset = locFound + needle.length
     const nextSubset = subset.slice(locStartNextSubset)
-    const accStrPrecedingNextSubset = () =>
+    const accumulateStrPrecedingNextSubset = () =>
       acc.concat(subset.slice(0, locStartNextSubset))
 
     if (type === 'prepend') {
       const locStartPotential = locFound - attachment.length
-      const potential = subset.slice(locStartPotential, locFound)
+      // If needle found at 0 then look at last index in accumulator.
+      const potential = locFound === 0
+        ? acc[acc.length - 1]
+        : subset.slice(locStartPotential, locFound)
 
-      if (ensureAttached && locStartPotential >= 0 && potential === attachment) {
-        acc = accStrPrecedingNextSubset()
+      if (ensureAttached && potential === attachment) {
+        acc = accumulateStrPrecedingNextSubset()
         return recur(nextSubset)
       }
 
@@ -45,8 +48,8 @@ const attach = opts => (haystack, needle, attachment) => {
       const locEndPotential = locStartNextSubset + attachment.length
       const potential = subset.slice(locStartNextSubset, locEndPotential)
 
-      if (ensureAttached && locEndPotential >= 0 && potential === attachment) {
-        acc = accStrPrecedingNextSubset()
+      if (ensureAttached && potential === attachment) {
+        acc = accumulateStrPrecedingNextSubset()
         return recur(nextSubset)
       }
 
