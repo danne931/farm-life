@@ -2,10 +2,10 @@ import test from 'ava'
 import * as libFns from '../index'
 
 const {
-  prependStrAtChar,
-  appendStrAtChar,
-  ensureStrPrependedAtChar,
-  ensureStrAppendedAtChar
+  prepend,
+  append,
+  ensurePrepended,
+  ensureAppended
 } = libFns
 
 const ensurePrependItems = [
@@ -57,37 +57,37 @@ const appendItems = [
 ]
 
 ensurePrependItems.forEach(item => {
-  test('ensureStrPrependedAtChar() should prepend string at a given char if does not exist', t => {
+  test('ensurePrepended() should prepend string at a given char if does not exist', t => {
     t.is(
       item.expected,
-      ensureStrPrependedAtChar(item.before, item.character, item.insertionStr)
+      ensurePrepended(item.before, item.character, item.insertionStr)
     )
   })
 })
 
 ensureAppendItems.forEach(item => {
-  test('ensureStrAppendedAtChar() should append string at a given char if does not exist', t => {
+  test('ensureAppended() should append string at a given char if does not exist', t => {
     t.is(
       item.expected,
-      ensureStrAppendedAtChar(item.before, item.character, item.insertionStr)
+      ensureAppended(item.before, item.character, item.insertionStr)
     )
   })
 })
 
 prependItems.forEach(item => {
-  test('prependStrAtChar() should prepend string at a given char', t => {
+  test('prepend() should prepend string at a given char', t => {
     t.is(
       item.expected,
-      prependStrAtChar(item.before, item.character, item.insertionStr)
+      prepend(item.before, item.character, item.insertionStr)
     )
   })
 })
 
 appendItems.forEach(item => {
-  test('appendStrAtChar() should append string at a given char', t => {
+  test('append() should append string at a given char', t => {
     t.is(
       item.expected,
-      appendStrAtChar(item.before, item.character, item.insertionStr)
+      append(item.before, item.character, item.insertionStr)
     )
   })
 })

@@ -59,16 +59,16 @@ const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
   })(str)
 }
 
-export const prependStrAtChar = insertStrAtChar({ type: 'prepend' })
+export const prepend = insertStrAtChar({ type: 'prepend' })
 
-export const appendStrAtChar = insertStrAtChar({ type: 'append' })
+export const append = insertStrAtChar({ type: 'append' })
 
-export const ensureStrPrependedAtChar = insertStrAtChar({
+export const ensurePrepended = insertStrAtChar({
   type: 'prepend',
   ensureInserted: true
 })
 
-export const ensureStrAppendedAtChar = insertStrAtChar({
+export const ensureAppended = insertStrAtChar({
   type: 'append',
   ensureInserted: true
 })

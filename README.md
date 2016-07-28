@@ -21,19 +21,19 @@ Not using Node or a module bundler? Use a UMD build via the `<script>` tag.
 
 ```javascript
 import {
-  appendStrAtChar,
-  prependStrAtChar,
-  ensureStrAppendedAtChar,
-  ensureStrPrependedAtChar
+  append,
+  prepend,
+  ensureAppended,
+  ensurePrepended
 } from 'insert-string-at-char'
 
 const str = '$the gr[]$[]eat gatsby $$[]'
 const searchChar = '$'
 const insertionStr = '[]'
 
-appendStrAtChar(str, searchChar, insertionStr)  // '$[]the gr[]$[][]eat gatsby $[]$[][]'
-ensureStrAppendedAtChar(str, searchChar, insertionStr) // '$[]the gr[]$[]eat gatsby $[]$[]'
+append(str, searchChar, insertionStr)  // '$[]the gr[]$[][]eat gatsby $[]$[][]'
+ensureAppended(str, searchChar, insertionStr) // '$[]the gr[]$[]eat gatsby $[]$[]'
 
-prependStrAtChar(str, searchChar, insertionStr)  // '[]$the gr[][]$[]eat gatsby []$[]$[]'
-ensureStrPrependedAtChar(str, searchChar, insertionStr)  // '[]$the gr[]$[]eat gatsby []$[]$[]'
+prepend(str, searchChar, insertionStr)  // '[]$the gr[][]$[]eat gatsby []$[]$[]'
+ensurePrepended(str, searchChar, insertionStr)  // '[]$the gr[]$[]eat gatsby []$[]$[]'
 ```
