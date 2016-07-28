@@ -4,71 +4,73 @@ const isNil = val => val == null
 
 const isString = val => typeof val === 'string'
 
-const insertStrAtChar = opts => (str, searchChar, insertionStr) => {
-  const arr = [searchChar, insertionStr]
+const insert = opts => (str, searchStr, insertionStr) => {
+  const arr = [searchStr, insertionStr]
   if (isNil(str) || !isString(str)) return ''
   if (arr.some(isNil) ||
     !arr.every(isString) ||
-    searchChar.length === 0 ||
+    searchStr.length === 0 ||
     insertionStr.length === 0
   ) return str
 
   const { type, ensureInserted } = opts
   const insertionStrSize = insertionStr.length
-  const searchCharEscaped = escape(searchChar)
+  const searchStrSize = searchStr.length
+  const searchStrEscaped = escape(searchStr)
   let acc = []
 
-  return (function _insertStrAtChar (subset) {
-    const locFound = subset.search(searchCharEscaped)
+  return (function recur (subset) {
+    let locFound = subset.search(searchStrEscaped)
     if (locFound === -1) {
       return acc.length ? acc.concat(subset).join('') : subset
     }
 
-    const nextSubset = subset.slice(locFound + 1)
-    const accStrPrecedingLocFound = () =>
-      acc.concat(subset.slice(0, locFound + 1))
+    const locStartNextSubset = locFound + searchStrSize
+    const nextSubset = subset.slice(locStartNextSubset)
+    const accStrPrecedingNextSubset = () =>
+      acc.concat(subset.slice(0, locStartNextSubset))
 
     if (type === 'prepend') {
       const locStartPotential = locFound - insertionStrSize
       const potential = subset.slice(locStartPotential, locFound)
 
       if (ensureInserted && locStartPotential >= 0 && potential === insertionStr) {
-        acc = accStrPrecedingLocFound()
-        return subset.length ? _insertStrAtChar(nextSubset) : subset
+        acc = accStrPrecedingNextSubset()
+        return recur(nextSubset)
       }
 
       acc = acc
         .concat(subset.slice(0, locFound))
         .concat([insertionStr])
-        .concat(subset.slice(locFound, locFound + 1))
+        .concat(subset.slice(locFound, locStartNextSubset))
     } else {
-      const locEndPotential = locFound + insertionStrSize
-      const potential = subset.slice(locFound + 1, locEndPotential + 1)
+      const locEndPotential = locStartNextSubset + insertionStrSize
+      const potential = subset.slice(locStartNextSubset, locEndPotential)
 
       if (ensureInserted && locEndPotential >= 0 && potential === insertionStr) {
-        acc = accStrPrecedingLocFound()
-        return subset.length ? _insertStrAtChar(nextSubset) : subset
+        acc = accStrPrecedingNextSubset()
+        return recur(nextSubset)
       }
 
       acc = acc
-        .concat(subset.slice(0, locFound + 1))
+        .concat(subset.slice(0, locStartNextSubset))
         .concat([insertionStr])
     }
 
-    return _insertStrAtChar(nextSubset)
+    return recur(nextSubset)
   })(str)
 }
 
-export const prepend = insertStrAtChar({ type: 'prepend' })
+export const prepend = insert({ type: 'prepend' })
 
-export const append = insertStrAtChar({ type: 'append' })
+export const append = insert({ type: 'append' })
 
-export const ensurePrepended = insertStrAtChar({
+export const ensurePrepended = insert({
   type: 'prepend',
   ensureInserted: true
 })
 
-export const ensureAppended = insertStrAtChar({
+export const ensureAppended = insert({
   type: 'append',
   ensureInserted: true
 })

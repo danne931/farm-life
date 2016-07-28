@@ -12,13 +12,13 @@ const ensurePrependItems = [
   {
     before: '$the gr()$eat gatsby $$',
     expected: '()$the gr()$eat gatsby ()$()$',
-    character: '$',
+    searchStr: '$',
     insertionStr: '()'
   },
   {
     before: 'the- g---reat $--$',
     expected: 'the**- g**-**-**-reat $**-**-$',
-    character: '-',
+    searchStr: '-',
     insertionStr: '**'
   }
 ]
@@ -27,13 +27,13 @@ const ensureAppendItems = [
   {
     before: '$the gr()$eat gatsby $()$',
     expected: '$()the gr()$()eat gatsby $()$()',
-    character: '$',
+    searchStr: '$',
     insertionStr: '()'
   },
   {
     before: 'the- g---reat $--$',
     expected: 'the-** g-**-**-**reat $-**-**$',
-    character: '-',
+    searchStr: '-',
     insertionStr: '**'
   }
 ]
@@ -42,7 +42,7 @@ const prependItems = [
   {
     before: '$the gr()$eat gatsby $$',
     expected: '()$the gr()()$eat gatsby ()$()$',
-    character: '$',
+    searchStr: '$',
     insertionStr: '()'
   }
 ]
@@ -51,43 +51,43 @@ const appendItems = [
   {
     before: '$the gr()$eat gatsby $()$',
     expected: '$()the gr()$()eat gatsby $()()$()',
-    character: '$',
+    searchStr: '$',
     insertionStr: '()'
   }
 ]
 
 ensurePrependItems.forEach(item => {
-  test('ensurePrepended() should prepend string at a given char if does not exist', t => {
+  test('ensurePrepended() should prepend insertionStr to searchStr if does not exist', t => {
     t.is(
       item.expected,
-      ensurePrepended(item.before, item.character, item.insertionStr)
+      ensurePrepended(item.before, item.searchStr, item.insertionStr)
     )
   })
 })
 
 ensureAppendItems.forEach(item => {
-  test('ensureAppended() should append string at a given char if does not exist', t => {
+  test('ensureAppended() should append insertionStr to searchStr if does not exist', t => {
     t.is(
       item.expected,
-      ensureAppended(item.before, item.character, item.insertionStr)
+      ensureAppended(item.before, item.searchStr, item.insertionStr)
     )
   })
 })
 
 prependItems.forEach(item => {
-  test('prepend() should prepend string at a given char', t => {
+  test('prepend() should prepend insertionStr to searchStr', t => {
     t.is(
       item.expected,
-      prepend(item.before, item.character, item.insertionStr)
+      prepend(item.before, item.searchStr, item.insertionStr)
     )
   })
 })
 
 appendItems.forEach(item => {
-  test('append() should append string at a given char', t => {
+  test('append() should append insertionStr to searchStr', t => {
     t.is(
       item.expected,
-      append(item.before, item.character, item.insertionStr)
+      append(item.before, item.searchStr, item.insertionStr)
     )
   })
 })
@@ -107,7 +107,7 @@ Object.keys(libFns).forEach(fnName => {
   })
 
   const testTitle = fnName + ' returns str arg if str arg is non-empty ' +
-    'string and searchChar or insertionStr args are not of type ' +
+    'string and searchStr or insertionStr args are not of type ' +
     'string'
   const str = 'abc'
   test(testTitle, t => {
@@ -117,7 +117,7 @@ Object.keys(libFns).forEach(fnName => {
   })
 
   const testTitle2 = fnName + ' returns str arg if str arg is non-empty ' +
-    'string and searchChar or insertionStr args are empty string'
+    'string and searchStr or insertionStr args are empty string'
   test(testTitle2, t => {
     t.is(fn(str, '', '$'), str)
     t.is(fn(str, 'a', ''), str)
