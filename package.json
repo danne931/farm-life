@@ -9,7 +9,7 @@
     "index.js"
   ],
   "dependencies": {
-    "regexp.escape": "^1.0.2"
+    "escape-string-regexp": "^1.0.5"
   },
   "devDependencies": {
     "ava": "^0.15.2",

@@ -1,4 +1,4 @@
-import escape from 'regexp.escape'
+import escape from 'escape-string-regexp'
 
 const isNil = val => val == null
 
