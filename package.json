@@ -1,7 +1,7 @@
 {
   "name": "insert-string-at-char",
   "version": "0.0.1",
-  "description": "Prepend or append string X at each occurrence of character Y in string Z",
+  "description": "Prepend or append string X to each occurrence of string Y in string Z",
   "main": "lib/index.js",
   "files": [
     "dist",
@@ -44,10 +44,10 @@
     "url": "https://github.com/danne931/insert-string-at-char/issues"
   },
   "keywords": [
-    "insert string at char",
-    "insert string at character",
     "prepend string",
     "append string",
+    "append",
+    "prepend",
     "string",
     "manipulate string",
     "manipulate strings",

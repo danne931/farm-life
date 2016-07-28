@@ -4,7 +4,7 @@ const isNil = val => val == null
 
 const isString = val => typeof val === 'string'
 
-const insert = opts => (haystack, needle, attachment) => {
+const attach = opts => (haystack, needle, attachment) => {
   const arr = [needle, attachment]
   if (isNil(haystack) || !isString(haystack)) return ''
   if (arr.some(isNil) ||
@@ -13,7 +13,7 @@ const insert = opts => (haystack, needle, attachment) => {
     attachment.length === 0
   ) return haystack
 
-  const { type, ensureInserted } = opts
+  const { type, ensureAttached } = opts
   const needleEscaped = escape(needle)
   let acc = []
 
@@ -32,7 +32,7 @@ const insert = opts => (haystack, needle, attachment) => {
       const locStartPotential = locFound - attachment.length
       const potential = subset.slice(locStartPotential, locFound)
 
-      if (ensureInserted && locStartPotential >= 0 && potential === attachment) {
+      if (ensureAttached && locStartPotential >= 0 && potential === attachment) {
         acc = accStrPrecedingNextSubset()
         return recur(nextSubset)
       }
@@ -45,7 +45,7 @@ const insert = opts => (haystack, needle, attachment) => {
       const locEndPotential = locStartNextSubset + attachment.length
       const potential = subset.slice(locStartNextSubset, locEndPotential)
 
-      if (ensureInserted && locEndPotential >= 0 && potential === attachment) {
+      if (ensureAttached && locEndPotential >= 0 && potential === attachment) {
         acc = accStrPrecedingNextSubset()
         return recur(nextSubset)
       }
@@ -59,16 +59,16 @@ const insert = opts => (haystack, needle, attachment) => {
   })(haystack)
 }
 
-export const prepend = insert({ type: 'prepend' })
+export const prepend = attach({ type: 'prepend' })
 
-export const append = insert({ type: 'append' })
+export const append = attach({ type: 'append' })
 
-export const ensurePrepended = insert({
+export const ensurePrepended = attach({
   type: 'prepend',
-  ensureInserted: true
+  ensureAttached: true
 })
 
-export const ensureAppended = insert({
+export const ensureAppended = attach({
   type: 'append',
-  ensureInserted: true
+  ensureAttached: true
 })

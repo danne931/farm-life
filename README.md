@@ -1,6 +1,6 @@
 # insert-string-at-char
 
-Prepend or append string X at each occurrence of character Y in string Z
+Prepend or append string X to each occurrence of string Y in string Z
 
 [![Build Status](https://travis-ci.org/danne931/insert-string-at-char.svg?branch=master)](https://travis-ci.org/danne931/insert-string-at-char)
 [![npm version](https://img.shields.io/npm/v/insert-string-at-char.svg?style=flat-square)](https://www.npmjs.com/package/insert-string-at-char)
@@ -27,13 +27,13 @@ import {
   ensurePrepended
 } from 'insert-string-at-char'
 
-const str = '$the gr[]$[]eat gatsby $$[]'
-const searchChar = '$'
-const insertionStr = '[]'
+const haystack = '$the gr[]$[]eat gatsby $$[]'
+const needle = '$'
+const attachment = '[]'
 
-append(str, searchChar, insertionStr)  // '$[]the gr[]$[][]eat gatsby $[]$[][]'
-ensureAppended(str, searchChar, insertionStr) // '$[]the gr[]$[]eat gatsby $[]$[]'
+append(haystack, needle, attachment)  // '$[]the gr[]$[][]eat gatsby $[]$[][]'
+ensureAppended(haystack, needle, attachment) // '$[]the gr[]$[]eat gatsby $[]$[]'
 
-prepend(str, searchChar, insertionStr)  // '[]$the gr[][]$[]eat gatsby []$[]$[]'
-ensurePrepended(str, searchChar, insertionStr)  // '[]$the gr[]$[]eat gatsby []$[]$[]'
+prepend(haystack, needle, attachment)  // '[]$the gr[][]$[]eat gatsby []$[]$[]'
+ensurePrepended(haystack, needle, attachment)  // '[]$the gr[]$[]eat gatsby []$[]$[]'
 ```

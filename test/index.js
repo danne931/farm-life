@@ -101,7 +101,7 @@ Object.keys(libFns).forEach(fnName => {
     t.is(fn(null, null, 'a'), '')
   })
 
-  test(fnName + ' return empty string if str arg is not of type string', t => {
+  test(fnName + ' returns empty string if haystack is not of type string', t => {
     t.is(fn(100030, 1, '$'), '')
     t.is(fn([], 1, '$'), '')
   })
