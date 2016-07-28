@@ -4,61 +4,59 @@ const isNil = val => val == null
 
 const isString = val => typeof val === 'string'
 
-const insert = opts => (str, searchStr, insertionStr) => {
-  const arr = [searchStr, insertionStr]
-  if (isNil(str) || !isString(str)) return ''
+const insert = opts => (haystack, needle, attachment) => {
+  const arr = [needle, attachment]
+  if (isNil(haystack) || !isString(haystack)) return ''
   if (arr.some(isNil) ||
     !arr.every(isString) ||
-    searchStr.length === 0 ||
-    insertionStr.length === 0
-  ) return str
+    needle.length === 0 ||
+    attachment.length === 0
+  ) return haystack
 
   const { type, ensureInserted } = opts
-  const insertionStrSize = insertionStr.length
-  const searchStrSize = searchStr.length
-  const searchStrEscaped = escape(searchStr)
+  const needleEscaped = escape(needle)
   let acc = []
 
   return (function recur (subset) {
-    let locFound = subset.search(searchStrEscaped)
+    let locFound = subset.search(needleEscaped)
     if (locFound === -1) {
       return acc.length ? acc.concat(subset).join('') : subset
     }
 
-    const locStartNextSubset = locFound + searchStrSize
+    const locStartNextSubset = locFound + needle.length
     const nextSubset = subset.slice(locStartNextSubset)
     const accStrPrecedingNextSubset = () =>
       acc.concat(subset.slice(0, locStartNextSubset))
 
     if (type === 'prepend') {
-      const locStartPotential = locFound - insertionStrSize
+      const locStartPotential = locFound - attachment.length
       const potential = subset.slice(locStartPotential, locFound)
 
-      if (ensureInserted && locStartPotential >= 0 && potential === insertionStr) {
+      if (ensureInserted && locStartPotential >= 0 && potential === attachment) {
         acc = accStrPrecedingNextSubset()
         return recur(nextSubset)
       }
 
       acc = acc
         .concat(subset.slice(0, locFound))
-        .concat([insertionStr])
+        .concat([attachment])
         .concat(subset.slice(locFound, locStartNextSubset))
     } else {
-      const locEndPotential = locStartNextSubset + insertionStrSize
+      const locEndPotential = locStartNextSubset + attachment.length
       const potential = subset.slice(locStartNextSubset, locEndPotential)
 
-      if (ensureInserted && locEndPotential >= 0 && potential === insertionStr) {
+      if (ensureInserted && locEndPotential >= 0 && potential === attachment) {
         acc = accStrPrecedingNextSubset()
         return recur(nextSubset)
       }
 
       acc = acc
         .concat(subset.slice(0, locStartNextSubset))
-        .concat([insertionStr])
+        .concat([attachment])
     }
 
     return recur(nextSubset)
-  })(str)
+  })(haystack)
 }
 
 export const prepend = insert({ type: 'prepend' })

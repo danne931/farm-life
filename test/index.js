@@ -12,14 +12,14 @@ const ensurePrependItems = [
   {
     before: '$the gr()$eat gatsby $$',
     expected: '()$the gr()$eat gatsby ()$()$',
-    searchStr: '$',
-    insertionStr: '()'
+    needle: '$',
+    attachment: '()'
   },
   {
     before: 'the- g---reat $--$',
     expected: 'the**- g**-**-**-reat $**-**-$',
-    searchStr: '-',
-    insertionStr: '**'
+    needle: '-',
+    attachment: '**'
   }
 ]
 
@@ -27,14 +27,14 @@ const ensureAppendItems = [
   {
     before: '$the gr()$eat gatsby $()$',
     expected: '$()the gr()$()eat gatsby $()$()',
-    searchStr: '$',
-    insertionStr: '()'
+    needle: '$',
+    attachment: '()'
   },
   {
     before: 'the- g---reat $--$',
     expected: 'the-** g-**-**-**reat $-**-**$',
-    searchStr: '-',
-    insertionStr: '**'
+    needle: '-',
+    attachment: '**'
   }
 ]
 
@@ -42,8 +42,8 @@ const prependItems = [
   {
     before: '$the gr()$eat gatsby $$',
     expected: '()$the gr()()$eat gatsby ()$()$',
-    searchStr: '$',
-    insertionStr: '()'
+    needle: '$',
+    attachment: '()'
   }
 ]
 
@@ -51,43 +51,43 @@ const appendItems = [
   {
     before: '$the gr()$eat gatsby $()$',
     expected: '$()the gr()$()eat gatsby $()()$()',
-    searchStr: '$',
-    insertionStr: '()'
+    needle: '$',
+    attachment: '()'
   }
 ]
 
 ensurePrependItems.forEach(item => {
-  test('ensurePrepended() should prepend insertionStr to searchStr if does not exist', t => {
+  test('ensurePrepended() should prepend attachment to needle if does not exist', t => {
     t.is(
       item.expected,
-      ensurePrepended(item.before, item.searchStr, item.insertionStr)
+      ensurePrepended(item.before, item.needle, item.attachment)
     )
   })
 })
 
 ensureAppendItems.forEach(item => {
-  test('ensureAppended() should append insertionStr to searchStr if does not exist', t => {
+  test('ensureAppended() should append attachment to needle if does not exist', t => {
     t.is(
       item.expected,
-      ensureAppended(item.before, item.searchStr, item.insertionStr)
+      ensureAppended(item.before, item.needle, item.attachment)
     )
   })
 })
 
 prependItems.forEach(item => {
-  test('prepend() should prepend insertionStr to searchStr', t => {
+  test('prepend() should prepend attachment to needle', t => {
     t.is(
       item.expected,
-      prepend(item.before, item.searchStr, item.insertionStr)
+      prepend(item.before, item.needle, item.attachment)
     )
   })
 })
 
 appendItems.forEach(item => {
-  test('append() should append insertionStr to searchStr', t => {
+  test('append() should append attachment to needle', t => {
     t.is(
       item.expected,
-      append(item.before, item.searchStr, item.insertionStr)
+      append(item.before, item.needle, item.attachment)
     )
   })
 })
@@ -106,9 +106,8 @@ Object.keys(libFns).forEach(fnName => {
     t.is(fn([], 1, '$'), '')
   })
 
-  const testTitle = fnName + ' returns str arg if str arg is non-empty ' +
-    'string and searchStr or insertionStr args are not of type ' +
-    'string'
+  const testTitle = fnName + ' returns haystack if haystack is non-empty ' +
+    'string and needle or attachment are not of type string'
   const str = 'abc'
   test(testTitle, t => {
     t.is(fn(str, null, null), str)
@@ -116,8 +115,8 @@ Object.keys(libFns).forEach(fnName => {
     t.is(fn(str, 'a', null), str)
   })
 
-  const testTitle2 = fnName + ' returns str arg if str arg is non-empty ' +
-    'string and searchStr or insertionStr args are empty string'
+  const testTitle2 = fnName + ' returns haystack if haystack is non-empty ' +
+    'string and needle or attachment are empty string'
   test(testTitle2, t => {
     t.is(fn(str, '', '$'), str)
     t.is(fn(str, 'a', ''), str)
