@@ -53,9 +53,7 @@ const attach = opts => (haystack, needle, attachment) => {
         return recur(nextSubset)
       }
 
-      acc = acc
-        .concat(subset.slice(0, locStartNextSubset))
-        .concat([attachment])
+      acc = accumulateStrPrecedingNextSubset().concat([attachment])
     }
 
     return recur(nextSubset)
