@@ -5,6 +5,7 @@ Prepend/append string X (or ensure string X is prepended/appended) to each occur
 ![](http://i.giphy.com/aJupEZUSsQKGY.gif)
 
 [![Build Status](https://travis-ci.org/danne931/farm-life.svg?branch=master)](https://travis-ci.org/danne931/farm-life)
+[![Coverage Status](https://coveralls.io/repos/github/danne931/farm-life/badge.svg)](https://coveralls.io/github/danne931/farm-life)
 [![npm version](https://img.shields.io/npm/v/farm-life.svg?style=flat-square)](https://www.npmjs.com/package/farm-life)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 ![](https://img.shields.io/badge/license-MIT-blue.svg)

@@ -18,7 +18,7 @@ const attach = opts => (haystack, needle, attachment) => {
   let acc = []
 
   return (function recur (subset) {
-    let locFound = subset.search(needleEscaped)
+    const locFound = subset.search(needleEscaped)
     if (locFound === -1) {
       return acc.length ? acc.concat(subset).join('') : subset
     }
