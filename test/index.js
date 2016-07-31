@@ -191,6 +191,10 @@ appendItems.forEach(item => {
 Object.keys(libFns).forEach(fnName => {
   const fn = libFns[fnName]
 
+  test(fnName + ' returns haystack if needle is not found in haystack', t => {
+    t.is(fn('farm life', '$', '_'), 'farm life')
+  })
+
   test(fnName + ' returns empty string if called with missing args', t => {
     t.is(fn(), '')
     t.is(fn(null, 'a', null), '')
