@@ -17,8 +17,8 @@ $ npm install --save farm-life
 ```
 
 Not using Node or a module bundler? Use a UMD build via the `<script>` tag.
-- [https://npmcdn.com/farm-life/dist/farm-life.js](https://npmcdn.com/farm-life/dist/farm-life.js)
-- [https://npmcdn.com/farm-life/dist/farm-life.min.js](https://npmcdn.com/farm-life/dist/farm-life.min.js)
+- [https://unpkg.com/farm-life/dist/farm-life.js](https://unpkg.com/farm-life/dist/farm-life.js)
+- [https://unpkg.com/farm-life/dist/farm-life.min.js](https://unpkg.com/farm-life/dist/farm-life.min.js)
 
 ## Usage
 
