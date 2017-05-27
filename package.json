@@ -1,6 +1,6 @@
 {
   "name": "farm-life",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Prepend/append string X (or ensure string X is prepended/appended) to each occurrence of string Y in string Z",
   "main": "lib/index.js",
   "files": [
